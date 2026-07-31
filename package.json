@@ -1,0 +1,13 @@
+{
+  "name": "movies-app-root",
+  "private": true,
+  "workspaces": [
+    "my-react-app"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w my-react-app",
+    "build": "npm run build -w my-react-app",
+    "preview": "npm run preview -w my-react-app",
+    "lint": "npm run lint -w my-react-app"
+  }
+}
