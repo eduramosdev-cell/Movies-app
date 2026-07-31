@@ -1,5 +1,5 @@
 export const Hero = () => {
-    return <section>
+    return <section className="">
         {/*logo*/}
         <div>
             <div>

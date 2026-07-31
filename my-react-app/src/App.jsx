@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { fetchGenres } from "./genre api";
-import { fetchMovies } from "./movies api"
+import { fetchGenres } from "./api/genre api";
+import { fetchMovies } from "./api/movies api"
 
 export default function App() {
   const [genres, setGenres] = useState(null);
