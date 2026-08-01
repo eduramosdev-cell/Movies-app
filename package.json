@@ -9,5 +9,8 @@
     "build": "npm run build -w my-react-app",
     "preview": "npm run preview -w my-react-app",
     "lint": "npm run lint -w my-react-app"
+  },
+  "dependencies": {
+    "lucide-react": "^1.28.0"
   }
 }

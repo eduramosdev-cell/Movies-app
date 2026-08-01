@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { fetchGenres } from "./api/genre api";
-import { fetchMovies } from "./api/movies api"
+import { NavBar } from "./layout/NavBar";
 
 export default function App() {
 
   return (
-    <div className="sticky top-0 z-50 glass">
-      
+    <div>
+      <NavBar />
     </div>
   );
 };

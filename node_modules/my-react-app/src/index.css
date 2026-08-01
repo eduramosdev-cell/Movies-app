@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-    --color-background: #4E1F6E;
+    --color-background: #3E3E75;
     --color-foreground: #F8FAFC;
 
-    --color-card: #3E3E75;
+    --color-card: #4E1F6E;
 
     --color-primary: #45A9A9;
     --color-primary-foreground: #F8FAFC;
@@ -21,6 +21,9 @@
 
     --color-highlight: #98E8DE;
     --color-surface: #4A4A7C;
+
+    --font-sans: "Inter", sans-serif;
+    --font-display: "Lato", serif;
 }
 
 @layer base {
@@ -36,11 +39,11 @@
     body {
         background-color: var(--color-background);
         color: var(--color-foreground);
-        font-family: "Inter", sans-serif;
+        font-family: var(--font-sans);
     }
 
     .font-serif {
-        font-family: "Playfair Display", serif;
+        font-family: var(--font-display);
     }
 }
 
