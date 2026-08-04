@@ -25,9 +25,9 @@ export default function MovieCard({
         ${className}
         `}>
             <img 
-                src={`${TMDB_IMAGE_BASE_URL}/${POSTER_SIZE}${posterPath}`}
+                src={posterPath}
                 alt={title || "Untitled"}
-                className="aspect-2/3 w-full object-cover"
+                className="aspect-2/2 w-full object-cover"
             />
 
             <div className="p-4 flex flex-col gap-2">
