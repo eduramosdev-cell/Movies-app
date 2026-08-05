@@ -1,5 +1,5 @@
 export const NavLogo = () => {
-    return <div className="flex items-center gap-2">
+    return <div className="flex items-center gap-2 pl-8">
         <div className="overflow-hidden">
             <a href="#">
                 <img src="public/Movie-app-logo.png" className="h-12 w-auto rounded-3xl scale-125 " />

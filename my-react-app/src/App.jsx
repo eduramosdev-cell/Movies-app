@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { NavBar } from "./layout/NavBar";
-import { Hero } from "./sections/Hero.jsx";
+import { NavBar } from "./layout/navBar";
+import { Hero } from "./sections/hero";
+import { Popular } from "./sections/popular";
 
 export default function App() {
 
@@ -8,6 +9,7 @@ export default function App() {
     <div>
       <NavBar />
       <Hero />
+      <Popular />
     </div>
   );
 };

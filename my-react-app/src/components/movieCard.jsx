@@ -9,7 +9,9 @@ export default function MovieCard({
 }) {
 
     const year = releaseDate?.split("-")[0] ?? "—";
-    const score = rating?.toFixed(1) ?? "N/A";
+    const numericRating = typeof rating === "number" ? rating : Number(rating);
+    const score = Number.isFinite(numericRating) ? numericRating.toFixed(1) : "N/A";
+
     return (
         <div className={`
         w-72
@@ -26,10 +28,10 @@ export default function MovieCard({
             <img 
                 src={posterPath}
                 alt={title || "Untitled"}
-                className="aspect-2/2 w-full object-cover"
+                className="aspect-2/3 w-full object-cover"
             />
 
-            <div className="p-4 flex flex-col gap-2">
+            <div className="p-4 flex flex-col">
                 <span className="flex items-center gap-1">
                     <Star /> {score}
                 </span>
