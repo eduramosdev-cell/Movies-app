@@ -1,5 +1,4 @@
 import { Star } from "lucide-react";
-import { TMDB_IMAGE_BASE_URL, POSTER_SIZE } from "../constants/tmdb";
 
 export default function MovieCard({
     title,
