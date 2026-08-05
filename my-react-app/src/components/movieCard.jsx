@@ -14,7 +14,13 @@ export default function MovieCard({
 
     return (
         <div className={`
-        w-72
+        aspect-2/4.5
+        w-48
+        flex
+        flex-col
+        items-start
+        justify-start
+        space-between
         overflow-hidden
         rounded-(--radius)
         bg-card
@@ -22,7 +28,7 @@ export default function MovieCard({
         border-muted
         hover:scale-101
         duration-300
-        shadow-md
+        shadow-lg
         ${className}
         `}>
             <img 
