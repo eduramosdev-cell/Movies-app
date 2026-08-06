@@ -1,21 +1,21 @@
 import { useEffect, useState, useRef } from "react";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
-import { fetchNowPlaying } from "../api/moviesApi";
+import { fetchNowPlaying, fetchTopRated } from "../api/moviesApi";
 import MovieCard from "../components/movieCard.jsx";
 
-export const Popular = () => {
+export const TopRated = () => {
 
     const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
     const POSTER_SIZE = "w500";
     const BACKDROP_SIZE = "w1280";
     const PROFILE_SIZE = "w185";
 
-    const [nowPlaying, setNowPlaying] = useState([]);
+    const [topRated, setTopRated] = useState([]);
 
     useEffect(() => {
         async function loadData() {
-            const result = await fetchNowPlaying();
-            setNowPlaying(result);
+            const result = await fetchTopRated();
+            setTopRated(result);
         }
 
         loadData();
@@ -36,12 +36,12 @@ export const Popular = () => {
     return (
         <div className="relative w-full h-auto bg-background flex flex-col items-center justify-center">
             <div className="w-full flex flex-row justify-start items-center">
-                <h2 className="text-3xl py-3 px-8">Now Playing</h2>
+                <h2 className="text-3xl py-3 px-8">Top Rated</h2>
             </div>
             <div className="relative w-full">
                 <div className="w-full h-max flex items-center justify-start gap-4 py-2 px-2 relative overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
                     ref={carousel}>
-                    {nowPlaying.map((movie) => (
+                    {topRated.map((movie) => (
                         <div key={movie.id} className="w-full h-120">
                             <MovieCard
                                 title={movie.title}

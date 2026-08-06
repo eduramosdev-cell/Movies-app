@@ -8,6 +8,7 @@ const BACKDROP_SIZE = "w1280";
 const PROFILE_SIZE = "w185";
 
 let nowPlayingMovies = [];
+let topRatedMovies = [];
 
 export async function fetchNowPlaying() {
 
@@ -21,4 +22,33 @@ export async function fetchNowPlaying() {
   nowPlayingMovies = ((await response.json()).results);
   console.log(nowPlayingMovies);
   return nowPlayingMovies;
+}
+
+
+export async function fetchTopRated() {
+
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/top_rated?api_key=${key}`);
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch top rated movies');
+  }
+
+  const topRatedMovies = ((await response.json()).results);
+  console.log(topRatedMovies);
+  return topRatedMovies;
+}
+
+export async function fetchUpcoming() {
+
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/upcoming?api_key=${key}`);
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch upcoming movies');
+  }
+
+  const upcomingMovies = ((await response.json()).results);
+  console.log(upcomingMovies);
+  return upcomingMovies;
 }
