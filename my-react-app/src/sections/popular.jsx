@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Star } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
+import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { fetchNowPlaying } from "../api/moviesApi";
 import MovieCard from "../components/movieCard.jsx";
 
@@ -21,22 +21,49 @@ export const Popular = () => {
         loadData();
     }, []);
 
+    const carousel = useRef(null);
+
+    const handleScrollLeft = (e) => {
+        e.preventDefault();
+        carousel.current.scrollBy({ left: -800});
+    }
+
+    const handleScrollRight = (e) => {
+        e.preventDefault();
+        carousel.current.scrollBy({ left: 800});
+    }
+
     return (
         <div className="relative w-full h-auto bg-background flex flex-col items-center justify-center">
             <div className="w-full flex flex-row justify-start items-center">
                 <h2 className="text-3xl py-3 px-8">Now Playing</h2>
             </div>
-            <div className="w-full h-max flex flex-row items-center justify-start gap-4 py-2 px-2 relative overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                {nowPlaying.map((movie) => (
-                    <div key={movie.id} className="w-full h-120">
-                        <MovieCard
-                            title={movie.title}
-                            posterPath={`${TMDB_IMAGE_BASE_URL}/${POSTER_SIZE}${movie.poster_path}`}
-                            rating={movie.vote_average.toFixed(2)}
-                            releaseDate={movie.release_date}
-                        />
+            <div className="relative w-full max-w-7xl px-4">
+                <div className="w-full h-max flex items-center justify-start gap-4 py-2 px-2 relative overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                    ref={carousel}>
+                    {nowPlaying.map((movie) => (
+                        <div key={movie.id} className="w-full h-120">
+                            <MovieCard
+                                title={movie.title}
+                                posterPath={`${TMDB_IMAGE_BASE_URL}/${POSTER_SIZE}${movie.poster_path}`}
+                                rating={movie.vote_average.toFixed(2)}
+                                releaseDate={movie.release_date}
+                            />
+                        </div>
+                    ))}
+                </div>
+                <div className="absolute inset-0 z-50 flex justify-between items-center px-4 pointer-events-none">
+                    <div>
+                        <button onClick={handleScrollLeft} className="pointer-events-auto bg-black/40 hover:bg-black/70 text-white rounded-full p-2 transition-colors">
+                            <ChevronLeft size={50} />
+                        </button>
                     </div>
-                ))}
+                    <div>
+                        <button onClick={handleScrollRight} className="pointer-events-auto bg-black/40 hover:bg-black/70 text-white rounded-full p-2 transition-colors">
+                            <ChevronRight size={50} />
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     );
