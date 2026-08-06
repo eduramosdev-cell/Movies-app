@@ -39,7 +39,7 @@ export const Upcoming = () => {
                 <h2 className="text-3xl py-3 px-8">Upcoming</h2>
             </div>
             <div className="relative w-full">
-                <div className="w-full h-max flex items-center justify-start gap-4 py-2 px-2 relative overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                <div className="w-full h-max flex items-center justify-start gap-4 py-2 px-2 relative overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none"
                     ref={carousel}>
                     {upcoming.map((movie) => (
                         <div key={movie.id} className="w-full h-120">

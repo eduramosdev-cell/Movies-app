@@ -52,3 +52,17 @@ export async function fetchUpcoming() {
   console.log(upcomingMovies);
   return upcomingMovies;
 }
+
+export async function fetchTrendingActors() {
+
+  const response = await fetch(
+    `https://api.themoviedb.org/3/trending/person/day?language=en-US&api_key=${key}`);
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch trending actors');
+  }
+
+  const trendingActors = ((await response.json()).results);
+  console.log(trendingActors);
+  return trendingActors;
+}

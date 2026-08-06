@@ -4,6 +4,7 @@ import { Hero } from "./sections/hero";
 import { Popular } from "./sections/popular";
 import { TopRated } from "./sections/topRated";
 import { Upcoming } from "./sections/upcoming";
+import { TrendingActors } from "./sections/TrendingActors";
 
 export default function App() {
 
@@ -14,6 +15,7 @@ export default function App() {
       <Popular />
       <TopRated />
       <Upcoming />
+      <TrendingActors />
     </div>
   );
 };
