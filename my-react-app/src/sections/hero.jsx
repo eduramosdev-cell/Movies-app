@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Star } from "lucide-react";
+import { Star, X } from "lucide-react";
 import { fetchNowPlaying } from "../api/moviesApi";
 import { fetchGenres } from "../api/genreApi";
 import { Button } from "../components/button";
@@ -80,7 +80,7 @@ export const Hero = () => {
                 />
             </div>
             {/* Show Info */}
-            <div className="relative w-full h-screen bg-linear-40 from-black via-black/40 to-transparent flex flex-col items-start justify-center overflow-hidden">
+            <div className="relative w-full h-screen bg-linear-40 from-background via-background/40 to-transparent flex flex-col items-start justify-center overflow-hidden">
                 <div className="z-10 px-8 text-white flex flex-col items-start">
                     <h1 className="text-5xl font-bold mb-4 pt-16 max-w-sm">{featuredMovie.title}</h1>
                     <p className="text-xl mb-2 flex items-center">
@@ -111,15 +111,24 @@ export const Hero = () => {
                 </div>
             </div>
             {seeTrailer && trailer && (
-                <div className="fixed inset-0 z-20 bg-black/80 flex items-center justify-center p-4">
-                    <YouTube
+                <div className="fixed inset-0 z-20 bg-background/80 flex items-center justify-center p-4" onClick={() => setSeeTrailer(false)}>
+                    <div className="relative w-full max-w-5xl aspect-video">
+                        <YouTube
                         videoId={trailer.key}
+                        className="absolute inset-0 w-full h-full"
                         opts={{
                             width: "100%",
                             height: "100%"
                         }}
+                        onReady={(event) => {
+                            event.target.playVideo();
+                        }}
                         onEnd={() => setSeeTrailer(false)}
-                    />
+                        />
+                        <button onClick={() => setSeeTrailer(false)} className="absolute -top-12 -right-12 text-white hover:text-gray-300">
+                            <X className="w-9 h-9"/>
+                        </button>
+                    </div>
                 </div>
             )}
         </div>
