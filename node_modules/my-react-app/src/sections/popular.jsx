@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { fetchNowPlaying } from "../api/moviesApi";
 import MovieCard from "../components/movieCard.jsx";
+import { BigModal } from "../components/bigModal.jsx";
 
 export const Popular = () => {
 
@@ -21,6 +22,8 @@ export const Popular = () => {
         loadData();
     }, []);
 
+    {/*Carousel functionality*/}
+
     const carousel = useRef(null);
 
     const handleScrollLeft = (e) => {
@@ -33,16 +36,20 @@ export const Popular = () => {
         carousel.current.scrollBy({ left: 800, behavior: 'smooth' });
     }
 
+    {/*See details functionality*/}
+
+    const [selectedMovie, setSelectedMovie] = useState(null);
+
     return (
         <div className="relative w-full h-auto bg-background flex flex-col items-center justify-center">
             <div className="w-full flex flex-row justify-start items-center">
                 <h2 className="text-3xl py-3 px-8">Now Playing</h2>
             </div>
             <div className="relative w-full">
-                <div className="w-full h-max flex items-center justify-start gap-4 py-2 px-2 relative overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                <div className="w-full h-max flex items-center justify-start gap-4 py-2 px-2 relative overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none"
                     ref={carousel}>
                     {nowPlaying.map((movie) => (
-                        <div key={movie.id} className="w-full h-120">
+                        <div key={movie.id} className="w-full h-120" onClick={() => setSelectedMovie(movie)}>
                             <MovieCard
                                 title={movie.title}
                                 posterPath={`${TMDB_IMAGE_BASE_URL}/${POSTER_SIZE}${movie.poster_path}`}
@@ -65,6 +72,11 @@ export const Popular = () => {
                     </div>
                 </div>
             </div>
+        
+
+            {selectedMovie && (
+                <BigModal movie={selectedMovie} />
+            )}
         </div>
     );
 };
