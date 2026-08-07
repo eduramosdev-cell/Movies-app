@@ -66,3 +66,17 @@ export async function fetchTrendingActors() {
   console.log(trendingActors);
   return trendingActors;
 }
+
+export async function fetchTrailer(movieId) {
+
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${key}`);
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch movie trailer');
+  }
+
+  const trailer = ((await response.json()).results);
+  console.log("trailer:",trailer);
+  return trailer;
+}
