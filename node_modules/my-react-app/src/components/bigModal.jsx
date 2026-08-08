@@ -26,7 +26,7 @@ export default function BigModal({
     }, []);
 
   return (
-      <div className="relative w-full max-w-4xl md:max-w-5xl aspect-video overflow-y-auto rounded-xl bg-background text-white shadow-2xl border border-background/50 overflow-y-auto snap-y snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none">
+      <div className="relative w-full max-w-4xl md:max-w-5xl aspect-video rounded-xl bg-background text-white shadow-2xl border border-background/50 overflow-y-auto snap-y snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none">
 
         {/* Modal Flex */}
         <div className="flex flex-cols-1 md:flex-cols-3 gap-6 p-6 md:p-8">

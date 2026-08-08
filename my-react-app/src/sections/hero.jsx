@@ -105,14 +105,15 @@ export const Hero = () => {
             
                 {/*Trailer Button*/}
                 <div className="relative w-full px-8 flex flex-row gap-4 mt-4">
-                    <Button size="default" onClick={handleWatchTrailer}>
+                    <Button size="default" onClick={handleWatchTrailer} className="cursor-pointer">
                         Watch Trailer
                     </Button>
                 </div>
             </div>
             {seeTrailer && trailer && (
+                <div className="fixed inset-0 z-10 bg-black/50 backdrop-blur-sm" >
                 <div className="fixed inset-0 z-20 bg-background/80 flex items-center justify-center p-4" onClick={() => setSeeTrailer(false)}>
-                    <div className="relative w-full max-w-5xl aspect-video">
+                    <div className="relative w-full max-w-6xl aspect-video">
                         <YouTube
                         videoId={trailer.key}
                         className="absolute inset-0 w-full h-full"
@@ -125,10 +126,11 @@ export const Hero = () => {
                         }}
                         onEnd={() => setSeeTrailer(false)}
                         />
-                        <button onClick={() => setSeeTrailer(false)} className="absolute -top-12 -right-12 text-white hover:text-gray-300">
+                        <button onClick={() => setSeeTrailer(false)} className="cursor-pointer absolute -top-12 -right-12 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-black/40 text-white transition hover:bg-black/60 hover:text-gray-300">
                             <X className="w-9 h-9"/>
                         </button>
                     </div>
+                </div>
                 </div>
             )}
         </div>
