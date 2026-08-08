@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from "react";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
-import { fetchNowPlaying, fetchTopRated } from "../api/moviesApi";
+import { ChevronLeft, ChevronRight, Star, X } from "lucide-react";
+import { fetchTopRated, fetchTrailer } from "../api/moviesApi";
 import MovieCard from "../components/movieCard.jsx";
+import BigModal from "../components/bigModal.jsx";
 
 export const TopRated = () => {
 
@@ -33,6 +34,26 @@ export const TopRated = () => {
         carousel.current.scrollBy({ left: 800, behavior: 'smooth' });
     }
 
+    {/*See details functionality*/}
+
+    const [selectedMovie, setSelectedMovie] = useState(null);
+    const [selectedTrailerKey, setselectedTrailerKey] = useState(null)
+
+    {/*Trailer fetching*/}
+    useEffect(() => {
+        if (!selectedMovie) return;
+
+        async function loadTrailer() {
+            const result = await fetchTrailer(selectedMovie.id);
+            const trailerResult = result?.find(
+                (video) => video.type?.toLowerCase() === "trailer"
+            );
+            setselectedTrailerKey(trailerResult?.key ?? null);
+        }
+
+        loadTrailer();
+    }, [selectedMovie]);
+
     return (
         <div className="relative w-full h-auto bg-background flex flex-col items-center justify-center">
             <div className="w-full flex flex-row justify-start items-center">
@@ -42,7 +63,7 @@ export const TopRated = () => {
                 <div className="w-full h-max flex items-center justify-start gap-4 py-2 px-2 relative overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none]"
                     ref={carousel}>
                     {topRated.map((movie) => (
-                        <div key={movie.id} className="w-full h-120">
+                        <div key={movie.id} className="w-full h-120" onClick={() => setSelectedMovie(movie)}>
                             <MovieCard
                                 title={movie.title}
                                 posterPath={`${TMDB_IMAGE_BASE_URL}/${POSTER_SIZE}${movie.poster_path}`}
@@ -65,6 +86,25 @@ export const TopRated = () => {
                     </div>
                 </div>
             </div>
+
+            {selectedMovie && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/40 backdrop-blur-lg overscroll-behavior:contain">
+                <BigModal 
+                movie={selectedMovie}
+                title={selectedMovie.title}
+                posterPath={`${TMDB_IMAGE_BASE_URL}/${POSTER_SIZE}${selectedMovie.poster_path}`}
+                rating={selectedMovie.vote_average}
+                releaseDate={selectedMovie.release_date}
+                className = ""
+                language={selectedMovie.original_language}
+                overview={selectedMovie.overview}
+                trailer={selectedTrailerKey}
+                />
+                <button onClick={() => setSelectedMovie(false)} className="absolute top-5 right-5 text-white hover:text-gray-300 z-100">
+                    <X className="w-9 h-9"/>
+                </button>
+            </div>
+            )}
         </div>
     );
 };
