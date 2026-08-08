@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from "react";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
-import { fetchNowPlaying } from "../api/moviesApi";
+import { ChevronLeft, ChevronRight, Star, X } from "lucide-react";
+import { fetchNowPlaying, fetchTrailer } from "../api/moviesApi";
 import MovieCard from "../components/movieCard.jsx";
-import { BigModal } from "../components/bigModal.jsx";
+import BigModal from "../components/bigModal.jsx";
 
 export const Popular = () => {
 
@@ -39,6 +39,22 @@ export const Popular = () => {
     {/*See details functionality*/}
 
     const [selectedMovie, setSelectedMovie] = useState(null);
+    const [selectedTrailerKey, setselectedTrailerKey] = useState(null)
+
+    {/*Trailer fetching*/}
+    useEffect(() => {
+        if (!selectedMovie) return;
+
+        async function loadTrailer() {
+            const result = await fetchTrailer(selectedMovie.id);
+            const trailerResult = result?.find(
+                (video) => video.type?.toLowerCase() === "trailer"
+            );
+            setselectedTrailerKey(trailerResult?.key ?? null);
+        }
+
+        loadTrailer();
+    }, [selectedMovie]);
 
     return (
         <div className="relative w-full h-auto bg-background flex flex-col items-center justify-center">
@@ -59,7 +75,7 @@ export const Popular = () => {
                         </div>
                     ))}
                 </div>
-                <div className="absolute inset-0 z-50 flex justify-between items-center px-4 pointer-events-none">
+                <div className="absolute inset-0 z-10 flex justify-between items-center px-4 pointer-events-none">
                     <div>
                         <button onClick={handleScrollLeft} className="pointer-events-auto bg-black/40 hover:bg-black/70 text-white rounded-full p-2 transition-colors">
                             <ChevronLeft size={50} />
@@ -75,7 +91,22 @@ export const Popular = () => {
         
 
             {selectedMovie && (
-                <BigModal movie={selectedMovie} />
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/40 backdrop-blur-lg overscroll-behavior:contain">
+                <BigModal 
+                movie={selectedMovie}
+                title={selectedMovie.title}
+                posterPath={`${TMDB_IMAGE_BASE_URL}/${POSTER_SIZE}${selectedMovie.poster_path}`}
+                rating={selectedMovie.vote_average}
+                releaseDate={selectedMovie.release_date}
+                className = ""
+                language={selectedMovie.original_language}
+                overview={selectedMovie.overview}
+                trailer={selectedTrailerKey}
+                />
+                <button onClick={() => setSelectedMovie(false)} className="absolute top-5 right-5 text-white hover:text-gray-300 z-100">
+                    <X className="w-9 h-9"/>
+                </button>
+            </div>
             )}
         </div>
     );
