@@ -19,6 +19,17 @@ export const Hero = () => {
     const featuredMovie = nowPlaying[0] ?? {};
     const genreNames = getGenresNames(featuredMovie.genre_ids ?? []);
 
+    useEffect(() => {
+        if (!seeTrailer) return;
+
+        const previousOverflow = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+
+        return () => {
+            document.body.style.overflow = previousOverflow;
+        };
+    }, [seeTrailer]);
+
 
     {/*Now Playing fetching*/}
     useEffect(() => {

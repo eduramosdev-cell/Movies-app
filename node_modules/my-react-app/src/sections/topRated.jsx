@@ -88,7 +88,7 @@ export const TopRated = () => {
             </div>
 
             {selectedMovie && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/40 backdrop-blur-lg overscroll-behavior:contain">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/40 backdrop-blur-lg overscroll-behavior:contain" onClick={() => setSelectedMovie(false)}>
                 <BigModal 
                 movie={selectedMovie}
                 title={selectedMovie.title}
