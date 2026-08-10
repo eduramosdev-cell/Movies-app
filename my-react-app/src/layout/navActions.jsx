@@ -1,6 +1,7 @@
 import { Search, X } from "lucide-react"
 import { useState, useRef, useEffect } from "react"
 import { useQuery } from "@tanstack/react-query"
+import { fetchTrailer } from "../api/moviesApi"
 import MovieCard from "../components/movieCard"
 import BigModal from "../components/bigModal"
 import { ChevronLeft, ChevronRight } from "lucide-react"
@@ -8,27 +9,54 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 export const NavActions = () => {
     const [isVisible, setIsVisible] = useState(false)
     const [search, setSearch] = useState("")
+    const [selectedMovie, setSelectedMovie] = useState(null);
+    const [selectedTrailerKey, setselectedTrailerKey] = useState(null)
     const inputRef = useRef(null)
     const carousel = useRef(null);
 
     {/*See details functionality*/}
-    
-    const [selectedMovie, setSelectedMovie] = useState(null);
-    const [selectedTrailerKey, setselectedTrailerKey] = useState(null)
+
     
     {/*Trailer fetching*/}
     useEffect(() => {
-        if (!selectedMovie) return;
+        if (!selectedMovie) {
+            setselectedTrailerKey(null);
+            return;
+        }
+
+        let isMounted = true;
 
         async function loadTrailer() {
-            const result = await fetchTrailer(selectedMovie.id);
-            const trailerResult = result?.find(
-                (video) => video.type?.toLowerCase() === "trailer"
-            );
-            setselectedTrailerKey(trailerResult?.key ?? null);
+            setselectedTrailerKey(null);
+
+            try {
+                const result = await fetchTrailer(selectedMovie.id);
+                const trailerResult =
+                    result?.find(
+                        (video) =>
+                            video.site === "YouTube" &&
+                            ["trailer", "teaser", "clip"].includes(video.type?.toLowerCase())
+                    ) ??
+                    result?.find((video) => video.site === "YouTube") ??
+                    null;
+
+                if (isMounted) {
+                    setselectedTrailerKey(trailerResult?.key ?? null);
+                }
+            } catch (error) {
+                console.error("Failed to fetch trailer:", error);
+
+                if (isMounted) {
+                    setselectedTrailerKey(null);
+                }
+            }
         }
-    
+
         loadTrailer();
+
+        return () => {
+            isMounted = false;
+        };
     }, [selectedMovie]);
 
     const handleScrollLeft = (e) => {

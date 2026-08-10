@@ -34,7 +34,7 @@ export default function BigModal({
           {/* Details Section */}
           <div className="md:col-span-2 flex flex-col justify-between items-center space-y-4">
             {/*Trailer section*/}
-                <div className="relative w-full max-w-5xl md:max-w-6xl aspect-video">
+                <div className={`relative w-full max-w-5xl md:max-w-6xl aspect-video ${videoId? "" : "hidden"}`}>
                     {videoId ? (
                         <YouTube iframeClassName='rounded-xl'
                             videoId={videoId}

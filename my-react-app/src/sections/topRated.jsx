@@ -45,9 +45,14 @@ export const TopRated = () => {
 
         async function loadTrailer() {
             const result = await fetchTrailer(selectedMovie.id);
-            const trailerResult = result?.find(
-                (video) => video.type?.toLowerCase() === "trailer"
-            );
+            const trailerResult =
+                result?.find(
+                    (video) =>
+                        video.site === "YouTube" &&
+                        ["trailer"].includes(video.type?.toLowerCase())
+                ) ??
+                result?.find((video) => video.site === "YouTube") ??
+                null;
             setselectedTrailerKey(trailerResult?.key ?? null);
         }
 

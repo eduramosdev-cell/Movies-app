@@ -67,9 +67,18 @@ export const Hero = () => {
     {/*Trailer fetching*/}
     useEffect(() => {
         async function loadTrailer() {
-            console.log("Fetching trailer for movie ID:", featuredMovie.id);
+            if (!featuredMovie.id) return;
+
+            console.log(featuredMovie.id);
             const result = await fetchTrailer(featuredMovie.id);
-            const trailerResult = result?.find((video) => video.type.toLowerCase() === "trailer");
+            const trailerResult =
+                result?.find(
+                    (video) =>
+                        video.site === "YouTube" &&
+                        ["trailer"].includes(video.type?.toLowerCase())
+                ) ??
+                result?.find((video) => video.site === "YouTube") ??
+                null;
             setTrailer(trailerResult ?? null);
         }
 
