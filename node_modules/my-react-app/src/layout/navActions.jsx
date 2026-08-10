@@ -1,6 +1,7 @@
 import { Search, X } from "lucide-react"
 import { useState, useRef, useEffect } from "react"
 import { useQuery } from "@tanstack/react-query"
+import { useDebouncedValue } from '@tanstack/react-pacer'
 import { fetchTrailer } from "../api/moviesApi"
 import MovieCard from "../components/movieCard"
 import BigModal from "../components/bigModal"
@@ -8,9 +9,10 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 
 export const NavActions = () => {
     const [isVisible, setIsVisible] = useState(false)
-    const [search, setSearch] = useState("")
     const [selectedMovie, setSelectedMovie] = useState(null);
     const [selectedTrailerKey, setselectedTrailerKey] = useState(null)
+    const [search, setSearch] = useState("")
+    const [debouncedSearch] = useDebouncedValue(search, { wait: 500 })
     const inputRef = useRef(null)
     const carousel = useRef(null);
 
@@ -102,7 +104,7 @@ export const NavActions = () => {
     } = useQuery({
         queryKey: ["search", search],
         queryFn: fetchMovies,
-        enabled: search.trim().length > 0,
+        enabled: debouncedSearch.trim().length > 0,
     })
 
 
