@@ -74,6 +74,12 @@ export const NavActions = () => {
     const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
     const POSTER_SIZE = "w500";
 
+    const closeMovieModal = () => {
+        setSelectedMovie(null);
+        setselectedTrailerKey(null);
+        setSearch("");
+    };
+
     useEffect(() => {
         if (isVisible && inputRef.current) {
             inputRef.current.focus()
@@ -131,9 +137,9 @@ export const NavActions = () => {
                 {isLoading && <p>Loading movies</p>}
                 {error && <p>Error: {error.message}</p>}
             </div>
-            {isSuccess &&  (
+            {debouncedSearch.trim().length > 0 && isSuccess && (
                     <div className="relative w-full h-auto bg-background flex flex-col items-center justify-center">
-                        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-5xl px-4 bg-background/95 backdrop-blur-md py-8 rounded-xl shadow-2xl border border-border">
+                        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-5xl px-4 bg-background/30 backdrop-blur-md py-8 rounded-xl shadow-2xl border border-border">
                             <div className="w-full h-max flex items-center justify-start gap-4 py-2 px-2 relative overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none]"
                                 ref={carousel}>
                                 {movies.map((movie) => (
@@ -162,21 +168,26 @@ export const NavActions = () => {
                         </div>
             
                         {selectedMovie && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/40 backdrop-blur-lg overscroll-behavior:contain" onClick={() => setSelectedMovie(false)}>
-                            <BigModal 
-                            movie={selectedMovie}
-                            title={selectedMovie.title}
-                            posterPath={`${TMDB_IMAGE_BASE_URL}/${POSTER_SIZE}${selectedMovie.poster_path}`}
-                            rating={selectedMovie.vote_average}
-                            releaseDate={selectedMovie.release_date}
-                            className = ""
-                            language={selectedMovie.original_language}
-                            overview={selectedMovie.overview}
-                            trailer={selectedTrailerKey}
-                            />
-                            <button onClick={() => setSelectedMovie(false)} className="absolute top-5 right-5 text-white hover:text-gray-300 z-100">
-                                <X className="w-9 h-9"/>
-                            </button>
+                        <div
+                            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/40 backdrop-blur-lg overscroll-behavior:contain"
+                            onClick={closeMovieModal}
+                        >
+                            <div onClick={(e) => e.stopPropagation()}>
+                                <BigModal 
+                                movie={selectedMovie}
+                                title={selectedMovie.title}
+                                posterPath={`${TMDB_IMAGE_BASE_URL}/${POSTER_SIZE}${selectedMovie.poster_path}`}
+                                rating={selectedMovie.vote_average}
+                                releaseDate={selectedMovie.release_date}
+                                className = ""
+                                language={selectedMovie.original_language}
+                                overview={selectedMovie.overview}
+                                trailer={selectedTrailerKey}
+                                />
+                                <button onClick={closeMovieModal} className="absolute top-5 right-5 text-white hover:text-gray-300 z-100">
+                                    <X className="w-9 h-9"/>
+                                </button>
+                            </div>
                         </div>
                         )}
                     </div>
