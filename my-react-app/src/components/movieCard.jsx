@@ -14,7 +14,7 @@ export default function MovieCard({
 
     return (
         <div className={`
-        aspect-2/4.5
+        aspect-2/5
         w-48
         flex
         flex-col

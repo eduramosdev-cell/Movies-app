@@ -125,7 +125,7 @@ export const NavActions = () => {
                 className={`
                     text-sm bg-background text-foreground border border-input rounded-md 
                     focus:outline-none focus:ring-2 focus:ring-ring
-                    transition-all duration-300 ease-in-out
+                    transition-all duration-300 ease-in-out z-200
                     ${isVisible 
                         ? 'flex-1 opacity-100 px-3 py-1.5 border-input' 
                         : 'w-0 opacity-0 px-0 py-1.5 border-transparent pointer-events-none'
@@ -138,9 +138,9 @@ export const NavActions = () => {
                 {error && <p>Error: {error.message}</p>}
             </div>
             {debouncedSearch.trim().length > 0 && isSuccess && (
-                    <div className="relative w-full h-auto bg-background flex flex-col items-center justify-center">
-                        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-5xl px-4 bg-background/30 backdrop-blur-md py-8 rounded-xl shadow-2xl border border-border">
-                            <div className="w-full h-max flex items-center justify-start gap-4 py-2 px-2 relative overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none]"
+                    <div className="relative w-screen h-auto bg-background flex flex-col items-center justify-center">
+                        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full h-screen px-4 bg-background/30 backdrop-blur-md py-2 rounded-xl shadow-2xl border border-border flex items-center justify-center">
+                            <div className="w-full h-max flex items-center justify-start gap-4 px-2 relative overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none]"
                                 ref={carousel}>
                                 {movies.map((movie) => (
                                     <div key={movie.id} className="w-full h-120" onClick={() => setSelectedMovie(movie)}>
@@ -169,7 +169,7 @@ export const NavActions = () => {
             
                         {selectedMovie && (
                         <div
-                            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/40 backdrop-blur-lg overscroll-behavior:contain"
+                            className="fixed inset-0 z-300 flex items-center justify-center p-4 bg-background/40 backdrop-blur-lg overscroll-behavior:contain"
                             onClick={closeMovieModal}
                         >
                             <div onClick={(e) => e.stopPropagation()}>
@@ -194,8 +194,8 @@ export const NavActions = () => {
             )}
 
             <button 
-                className="flex flex-row gap-2 text-lg text-primary-foreground items-center font-sans font-light hover:text-primary-foreground/80 transition-colors duration-300 whitespace-nowrap" 
-                onClick={() => setIsVisible(!isVisible)}
+                className="flex flex-row gap-2 text-lg text-primary-foreground items-center font-sans font-light hover:text-primary-foreground/80 transition-colors duration-300 whitespace-nowrap z-200" 
+                onClick={() => {setIsVisible(!isVisible); setSearch("")}}
                 aria-label={isVisible ? "Close search" : "Open search"}
             >
                 {isVisible ? (
