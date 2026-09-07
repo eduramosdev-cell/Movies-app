@@ -62,7 +62,7 @@ export const Popular = () => {
     }, [selectedMovie]);
 
     return (
-        <div className="relative w-full h-auto bg-background flex flex-col items-center justify-center">
+        <div className="relative w-full h-auto bg-background flex flex-col items-center justify-center" id="popular">
             <div className="w-full flex flex-row justify-start items-center">
                 <h2 className="text-3xl py-3 px-8">Now Playing</h2>
             </div>

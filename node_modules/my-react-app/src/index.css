@@ -49,15 +49,15 @@
 
 @layer components {
     .glass {
-        background-color: color-mix(in srgb, var(--color-surface) 50%, transparent);
+        background-color: color-mix(in srgb, var(--color-surface) 50%, var(--color-surface) 0%);
         backdrop-filter: blur(16px);
-        border: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
+        border: 1px solid color-mix(in srgb, var(--color-border) 50%, var(--color-border) 0%);
     }
 
     .glass-strong {
-        background-color: color-mix(in srgb, var(--color-surface) 80%, transparent);
+        background-color: color-mix(in srgb, var(--color-surface) 80%, var(--color-surface) 0%);
         backdrop-filter: blur(24px);
-        border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+        border: 1px solid color-mix(in srgb, var(--color-border) 60%, var(--color-border) 0%);
     }
 
     .glow-text {

@@ -90,7 +90,7 @@ export const Hero = () => {
     }
 
     return (
-        <div className="relative w-full bg-background flex flex-col items-center justify-center overflow-hidden">
+        <div className="relative w-full bg-background flex flex-col items-center justify-center overflow-hidden" id="hero">
             {/* Hero img */}
             <div className="w-full z-0 absolute top-0 left-0">
                 <img
@@ -102,17 +102,17 @@ export const Hero = () => {
             {/* Show Info */}
             <div className="relative w-full h-screen bg-linear-40 from-background via-background/40 to-transparent flex flex-col items-start justify-center overflow-hidden">
                 <div className="z-10 px-8 text-white flex flex-col items-start">
-                    <h1 className="text-5xl font-bold mb-4 pt-16 max-w-sm">{featuredMovie.title}</h1>
-                    <p className="text-xl mb-2 flex items-center">
+                    <h1 className="text-5xl font-bold mb-4 pt-16 max-w-sm animate-fade-in">{featuredMovie.title}</h1>
+                    <p className="text-xl mb-2 flex items-center animate-fade-in animation-delay-100">
                         <span>
                             <Star className="mx-1" />
                         </span>
                         {featuredMovie.vote_average?.toFixed(2) ?? "0.00"}/10 ({featuredMovie.vote_count ?? 0}) {featuredMovie.runtime ?? ""}
                     </p>
-                    <p className="text-md text-gray-300 pb-2">{featuredMovie.release_date?.slice(0, 4) ?? ""}</p>
-                    <p className="text-lg mb-4 max-w-lg">{featuredMovie.overview}</p>
+                    <p className="text-md text-gray-300 pb-2 animate-fade-in animation-delay-200">{featuredMovie.release_date?.slice(0, 4) ?? ""}</p>
+                    <p className="text-lg mb-4 max-w-lg animate-fade-in animation-delay-300">{featuredMovie.overview}</p>
                 </div>
-                <div className="relative w-full px-8 flex flex-row gap-4">
+                <div className="relative w-full px-8 flex flex-row gap-4 animate-fade-in animation-delay-400">
                     {genreNames.map((genre, index) => (
                         <div key={`${index}`} className="glass rounded-full p-2 flex justify-center items-center">
                             <span className="text-xs text-gray-300">
@@ -124,7 +124,7 @@ export const Hero = () => {
                 </div>
             
                 {/*Trailer Button*/}
-                <div className="relative w-full px-8 flex flex-row gap-4 mt-4">
+                <div className="relative w-full px-8 flex flex-row gap-4 mt-4 animate-fade-in animation-delay-500">
                     <Button size="default" onClick={handleWatchTrailer} className="cursor-pointer">
                         Watch Trailer
                     </Button>

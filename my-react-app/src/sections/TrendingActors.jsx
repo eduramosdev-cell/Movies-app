@@ -41,7 +41,7 @@ export const TrendingActors = () => {
             <div className="relative w-full">
                 <div className="w-full h-max flex items-center justify-start gap-4 py-2 px-2 relative overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none"
                     ref={carousel}>
-                    {trendingActors.map((actor) => (
+                    {trendingActors.filter((actor) => actor.profile_path !== null).map((actor) => (
                         <div key={actor.id} className="w-full h-120">
                             <ActorCard
                                 name={actor.name}
