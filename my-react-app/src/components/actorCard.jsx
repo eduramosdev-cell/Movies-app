@@ -43,7 +43,7 @@ export default function ActorCard({
             ">
                 <img 
                     src={imageUrl}
-                    alt={name || "Unknown"}
+                    alt={`profile photo of ${name || "Actor profile photo"}`}
                     className="w-full h-full object-cover"
                 />
             </div>

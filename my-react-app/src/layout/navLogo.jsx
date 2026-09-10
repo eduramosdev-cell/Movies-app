@@ -3,7 +3,7 @@ export const NavLogo = () => {
         <div className="flex flex-row justify-between items-center gap-3 cursor-pointer">
             <div className="rounded-2xl w-auto overflow-hidden">
                 <a href="#">
-                    <img src="public/Movie-app-logo.png" className="h-12 w-auto rounded-2xl scale-125 " />
+                    <img src="public/Movie-app-logo.png" className="h-12 w-auto rounded-2xl scale-125 " alt="logo" />
                 </a>
             </div>
 

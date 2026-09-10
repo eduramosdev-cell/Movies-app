@@ -60,6 +60,7 @@ export const Upcoming = () => {
     }, [selectedMovie]);
 
     return (
+        <section id="upcoming" aria-labelledby="upcoming-heading">
         <div className="relative w-full h-auto bg-background flex flex-col items-center justify-center" id="upcoming">
             <div className="w-full flex flex-row justify-start items-center">
                 <h2 className="text-3xl py-3 px-8">Upcoming</h2>
@@ -68,24 +69,24 @@ export const Upcoming = () => {
                 <div className="w-full h-max flex items-center justify-start gap-4 py-2 px-2 relative overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none"
                     ref={carousel}>
                     {upcoming.map((movie) => (
-                        <div key={movie.id} className="w-full h-120" onClick={() => setSelectedMovie(movie)}>
+                        <button type="button" aria-label={`View details for ${movie.title}`} key={movie.id} className="w-full h-120" onClick={() => setSelectedMovie(movie)}>
                             <MovieCard
                                 title={movie.title}
                                 posterPath={`${TMDB_IMAGE_BASE_URL}/${POSTER_SIZE}${movie.poster_path}`}
                                 rating={movie.vote_average.toFixed(2)}
                                 releaseDate={movie.release_date}
                             />
-                        </div>
+                        </button>
                     ))}
                 </div>
                 <div className="absolute inset-0 z-50 flex justify-between items-center px-4 pointer-events-none">
                     <div>
-                        <button onClick={handleScrollLeft} className="pointer-events-auto bg-black/40 hover:bg-black/70 text-white rounded-full p-2 transition-colors">
+                        <button type="button" onClick={handleScrollLeft} className="pointer-events-auto bg-black/40 hover:bg-black/70 text-white rounded-full p-2 transition-colors" aria-label="Scroll left">
                             <ChevronLeft size={50} />
                         </button>
                     </div>
                     <div>
-                        <button onClick={handleScrollRight} className="pointer-events-auto bg-black/40 hover:bg-black/70 text-white rounded-full p-2 transition-colors">
+                        <button type="button" onClick={handleScrollRight} className="pointer-events-auto bg-black/40 hover:bg-black/70 text-white rounded-full p-2 transition-colors" aria-label="Scroll right">
                             <ChevronRight size={50} />
                         </button>
                     </div>
@@ -104,12 +105,13 @@ export const Upcoming = () => {
                 overview={selectedMovie.overview}
                 trailer={selectedTrailerKey}
                 />
-                <button onClick={() => setSelectedMovie(false)} className="absolute top-5 right-5 text-white hover:text-gray-300 z-100">
+                <button type="button" onClick={() => setSelectedMovie(false)} className="absolute top-5 right-5 text-white hover:text-gray-300 z-100" aria-label="Close details">
                     <X className="w-9 h-9"/>
                 </button>
             </div>
             )}
 
         </div>
+        </section>
     );
 };

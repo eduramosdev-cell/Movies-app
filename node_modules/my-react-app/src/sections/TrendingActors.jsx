@@ -34,6 +34,7 @@ export const TrendingActors = () => {
     }
 
     return (
+        <section id="trending-actors" aria-labelledby="trending-actors-heading">
         <div className="relative w-full h-auto bg-background flex flex-col items-center justify-center">
             <div className="w-full flex flex-row justify-start items-center">
                 <h2 className="text-3xl py-3 px-8">Trending Actors</h2>
@@ -53,17 +54,18 @@ export const TrendingActors = () => {
                 </div>
                 <div className="absolute inset-0 z-50 flex justify-between items-center px-4 pointer-events-none">
                     <div>
-                        <button onClick={handleScrollLeft} className="pointer-events-auto bg-black/40 hover:bg-black/70 text-white rounded-full p-2 transition-colors">
+                        <button type="button" onClick={handleScrollLeft} className="pointer-events-auto bg-black/40 hover:bg-black/70 text-white rounded-full p-2 transition-colors" aria-label="Scroll left">
                             <ChevronLeft size={50} />
                         </button>
                     </div>
                     <div>
-                        <button onClick={handleScrollRight} className="pointer-events-auto bg-black/40 hover:bg-black/70 text-white rounded-full p-2 transition-colors">
+                        <button type="button" onClick={handleScrollRight} className="pointer-events-auto bg-black/40 hover:bg-black/70 text-white rounded-full p-2 transition-colors" aria-label="Scroll right">
                             <ChevronRight size={50} />
                         </button>
                     </div>
                 </div>
             </div>
         </div>
+        </section>
     );
 };

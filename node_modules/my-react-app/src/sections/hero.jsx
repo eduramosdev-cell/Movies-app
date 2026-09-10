@@ -90,6 +90,7 @@ export const Hero = () => {
     }
 
     return (
+        <section id="hero" aria-labelledby="hero-heading">
         <div className="relative w-full bg-background flex flex-col items-center justify-center overflow-hidden" id="hero">
             {/* Hero img */}
             <div className="w-full z-0 absolute top-0 left-0">
@@ -97,6 +98,7 @@ export const Hero = () => {
                     src={`${TMDB_IMAGE_BASE_URL}/${BACKDROP_SIZE}${featuredMovie.backdrop_path ?? ""}`}
                     alt="Hero"
                     className="w-full h-auto object-cover"
+                    aria-hidden="true"
                 />
             </div>
             {/* Show Info */}
@@ -125,7 +127,7 @@ export const Hero = () => {
             
                 {/*Trailer Button*/}
                 <div className="relative w-full px-8 flex flex-row gap-4 mt-4 animate-fade-in animation-delay-500">
-                    <Button size="default" onClick={handleWatchTrailer} className="cursor-pointer">
+                    <Button type="button" size="default" onClick={handleWatchTrailer} className="cursor-pointer" aria-label="Watch trailer for featured movie">
                         Watch Trailer
                     </Button>
                 </div>
@@ -146,7 +148,7 @@ export const Hero = () => {
                         }}
                         onEnd={() => setSeeTrailer(false)}
                         />
-                        <button onClick={() => setSeeTrailer(false)} className="cursor-pointer absolute -top-12 -right-12 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-black/40 text-white transition hover:bg-black/60 hover:text-gray-300">
+                        <button type="button" onClick={() => setSeeTrailer(false)} className="cursor-pointer absolute -top-12 -right-12 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-black/40 text-white transition hover:bg-black/60 hover:text-gray-300" aria-label="Close trailer">
                             <X className="w-9 h-9"/>
                         </button>
                     </div>
@@ -154,5 +156,6 @@ export const Hero = () => {
                 </div>
             )}
         </div>
+        </section>
     );
 };

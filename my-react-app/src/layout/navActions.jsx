@@ -116,7 +116,9 @@ export const NavActions = () => {
 
     return <>
         <div className={`flex ${isVisible ? "flex-row" : "flex-row-reverse"} items-center gap-3 max-w-md w-full pr-8 transition-all duration-300`}>
+            <label htmlFor="movie-search" className="sr-only">Search movies</label>
             <input
+                id="movie-search"
                 ref={inputRef}
                 type="search" 
                 placeholder="Awesome movie here..." 
@@ -133,9 +135,10 @@ export const NavActions = () => {
                 `}
             />
 
-            <div className="mt-20">
+            <div role="status" aria-live="polite" className="mt-20">
                 {isLoading && <p>Loading movies</p>}
                 {error && <p>Error: {error.message}</p>}
+                {error && <div role="alert">Unable to load movies.</div>}
             </div>
             {debouncedSearch.trim().length > 0 && isSuccess && (
                     <div className="relative w-screen h-auto bg-background flex flex-col items-center justify-center">
@@ -143,24 +146,24 @@ export const NavActions = () => {
                             <div className="w-full h-max flex items-center justify-start gap-4 px-2 relative overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none]"
                                 ref={carousel}>
                                 {movies.map((movie) => (
-                                    <div key={movie.id} className="w-full h-120" onClick={() => setSelectedMovie(movie)}>
+                                    <button type="button" aria-label={`View details for ${movie.title}`} key={movie.id} className="w-full h-120" onClick={() => setSelectedMovie(movie)}>
                                         <MovieCard
                                             title={movie.title}
                                             posterPath={`${TMDB_IMAGE_BASE_URL}/${POSTER_SIZE}${movie.poster_path}`}
                                             rating={movie.vote_average.toFixed(2)}
                                             releaseDate={movie.release_date}
                                         />
-                                    </div>
+                                    </button>
                                 ))}
                             </div>
                             <div className="absolute inset-0 z-50 flex justify-between items-center px-4 pointer-events-none">
                                 <div>
-                                    <button onClick={handleScrollLeft} className="pointer-events-auto bg-black/40 hover:bg-black/70 text-white rounded-full p-2 transition-colors">
+                                    <button type="button" aria-label="Scroll left" onClick={handleScrollLeft} className="pointer-events-auto bg-black/40 hover:bg-black/70 text-white rounded-full p-2 transition-colors">
                                         <ChevronLeft size={50} />
                                     </button>
                                 </div>
                                 <div>
-                                    <button onClick={handleScrollRight} className="pointer-events-auto bg-black/40 hover:bg-black/70 text-white rounded-full p-2 transition-colors">
+                                    <button type="button" aria-label="Scroll right" onClick={handleScrollRight} className="pointer-events-auto bg-black/40 hover:bg-black/70 text-white rounded-full p-2 transition-colors">
                                         <ChevronRight size={50} />
                                     </button>
                                 </div>
@@ -184,7 +187,7 @@ export const NavActions = () => {
                                 overview={selectedMovie.overview}
                                 trailer={selectedTrailerKey}
                                 />
-                                <button onClick={closeMovieModal} className="absolute top-5 right-5 text-white hover:text-gray-300 z-100">
+                                <button type="button" aria-label="Close movie modal" onClick={closeMovieModal} className="absolute top-5 right-5 text-white hover:text-gray-300 z-100">
                                     <X className="w-9 h-9"/>
                                 </button>
                             </div>
@@ -194,6 +197,7 @@ export const NavActions = () => {
             )}
 
             <button 
+                type="button"
                 className="flex flex-row gap-2 text-lg text-primary-foreground items-center font-sans font-light hover:text-primary-foreground/80 transition-colors duration-300 whitespace-nowrap z-200" 
                 onClick={() => {setIsVisible(!isVisible); setSearch("")}}
                 aria-label={isVisible ? "Close search" : "Open search"}

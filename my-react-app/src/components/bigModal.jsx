@@ -55,7 +55,7 @@ export default function BigModal({
                 </div>
             <div className="flex flex-row gap-4">
                 <div>
-                    <img src={posterPath} className='rounded-lg' />
+                    <img src={posterPath} alt={`Poster for ${title}`} className='rounded-lg' />
                 </div>
                 <div>
                     <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight mb-2">

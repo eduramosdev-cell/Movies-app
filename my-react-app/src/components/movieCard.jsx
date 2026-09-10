@@ -13,7 +13,7 @@ export default function MovieCard({
     const score = Number.isFinite(numericRating) ? numericRating.toFixed(1) : "N/A";
 
     return (
-        <div className={`
+        <button type="button" className={`
         aspect-2/5
         w-48
         flex
@@ -52,6 +52,6 @@ export default function MovieCard({
                 <p className="text-sm text-muted-foreground"
                 >{year}</p>
             </div>
-        </div>
+        </button>
     )
 }

@@ -7,14 +7,16 @@ export const NavLinks = () => {
     ];
 
     return (
-        <div className="rounded-full p-3">
-            <div className="flex items-center gap-12">
+        <nav className="rounded-full p-3">
+            <ul className="flex items-center gap-12">
                 {links.map((link, idx) => (
-                    <a href={`/#${link.id}`} key={idx} className="text-lg text-primary-foreground font-light mx-4 hover:text-primary-foreground/80 transition-colors duration-300">
-                        {link.label}
-                    </a>
+                    <li key={idx}>
+                        <a href={`/#${link.id}`} className="text-lg text-primary-foreground font-light mx-4 hover:text-primary-foreground/80 transition-colors duration-300">
+                            {link.label}
+                        </a>
+                    </li>
                 ))}
-            </div>
-        </div>
+            </ul>
+        </nav>
     );
 };
